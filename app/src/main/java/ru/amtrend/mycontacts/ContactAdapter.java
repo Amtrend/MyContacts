@@ -1,15 +1,19 @@
 package ru.amtrend.mycontacts;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import ru.amtrend.mycontacts.databinding.ContactListItemBinding;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
@@ -30,9 +34,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     @Override
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_list_item, parent, false);
+//        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_list_item, parent, false);
+//
+//        return new ContactViewHolder(itemView);
 
-        return new ContactViewHolder(itemView);
+        ContactListItemBinding contactListItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.contact_list_item, parent, false);
+
+        return new ContactViewHolder(contactListItemBinding);
     }
 
     @Override
@@ -40,10 +48,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
         Contact contact = contactArrayList.get(position);
 
-        holder.firstNameTextView.setText(contact.getFirstName());
-        holder.lastNameTextView.setText(contact.getLastName());
-        holder.emailTextView.setText(contact.getEmail());
-        holder.phoneNumberTextView.setText(contact.getPhoneNumber());
+//        holder.firstNameTextView.setText(contact.getFirstName());
+//        holder.lastNameTextView.setText(contact.getLastName());
+//        holder.emailTextView.setText(contact.getEmail());
+//        holder.phoneNumberTextView.setText(contact.getPhoneNumber());
+
+        holder.contactListItemBinding.setContact(contact);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,19 +70,23 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     class ContactViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView firstNameTextView;
-        private TextView lastNameTextView;
-        private TextView emailTextView;
-        private TextView phoneNumberTextView;
+//        private TextView firstNameTextView;
+//        private TextView lastNameTextView;
+//        private TextView emailTextView;
+//        private TextView phoneNumberTextView;
 
-        public ContactViewHolder(@NonNull View itemView) {
+        private ContactListItemBinding contactListItemBinding;
 
-            super(itemView);
+        public ContactViewHolder(@NonNull ContactListItemBinding contactListItemBinding) {
 
-            firstNameTextView = itemView.findViewById(R.id.firstNameTextView);
-            lastNameTextView = itemView.findViewById(R.id.lastNameTextView);
-            emailTextView = itemView.findViewById(R.id.emailTextView);
-            phoneNumberTextView = itemView.findViewById(R.id.phoneNumberNameTextView);
+            super(contactListItemBinding.getRoot());
+
+            this.contactListItemBinding = contactListItemBinding;
+
+//            firstNameTextView = itemView.findViewById(R.id.firstNameTextView);
+//            lastNameTextView = itemView.findViewById(R.id.lastNameTextView);
+//            emailTextView = itemView.findViewById(R.id.emailTextView);
+//            phoneNumberTextView = itemView.findViewById(R.id.phoneNumberNameTextView);
 
         }
     }

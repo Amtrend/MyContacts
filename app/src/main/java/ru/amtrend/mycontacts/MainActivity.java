@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         buttonHandler = new MainActivityButtonHandler(this);
         activityMainBinding.setButtonHandler(buttonHandler);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = activityMainBinding.layoutContentMain.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
